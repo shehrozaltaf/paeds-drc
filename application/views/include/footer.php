@@ -1,7 +1,4 @@
-
-
 <div class="uk-notify uk-notify-bottom-center hide" id="notificationDiv" style="display: none"></div>
-
 
 <!-- google web fonts -->
 <script>
@@ -25,7 +22,7 @@
 </script>
 
 
-<!-- altair common functions/helpers -->
+<!-- altair core  functions-->
 <script src="<?= base_url() ?>assets/js/altair_admin_common.min.js"></script>
 <!--  notifications functions -->
 <script src="<?= base_url() ?>assets/js/pages/components_notifications.min.js"></script>
@@ -46,18 +43,20 @@
             $('#sideBarMenu').html(Result);
             setTimeout(function () {
                 altair_main_sidebar.init();
+                altair_main_sidebar.main_menu();
             }, 100);
         });
     }
 
 </script>
 
-
-<!-- page specific plugins -->
 <!-- parsley (validation) -->
 <script>
+
     // load parsley config (altair_admin_common.js)
     altair_forms.parsley_validation_config();
+    // load extra validators
+    altair_forms.parsley_extra_validators();
 </script>
 <script src="<?= base_url() ?>assets/bower_components/parsleyjs/dist/parsley.min.js"></script>
 

@@ -94,7 +94,7 @@ class Login extends CI_Controller
 </html>';
                 $to = ($_POST['Email']);
                 $result = $this->email
-                    ->from('sk_khan911@hotmail.com')
+                    ->from('shehroz.altaf92@gmail.com')
                     ->to($to)
                     ->subject($Subject)
                     ->message($body)

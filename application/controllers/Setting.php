@@ -114,29 +114,34 @@ class Setting extends CI_Controller
 
     public function fgAdd()
     {
-//        print_r($_POST);
         $mSetting = new Msetting();
         $last = "";
         for ($i = 0; $i < count($_POST); $i++) {
-            if (isset($_POST[$i]["CanView"])) {
+            if (isset($_POST[$i]["CanViewAllDetail"])) {
+                $postArray = array(
+                    'idPageGroup' => $_POST[$i]["idPageGroup"],
+                    'CanViewAllDetail' => ($_POST[$i]["CanViewAllDetail"] == "true") ? 1 : 0
+                );
+                $last = $mSetting->fgAdd($postArray);
+            } elseif (isset($_POST[$i]["CanView"])) {
                 $postArray = array(
                     'idPageGroup' => $_POST[$i]["idPageGroup"],
                     'CanView' => ($_POST[$i]["CanView"] == "true") ? 1 : 0
                 );
                 $last = $mSetting->fgAdd($postArray);
-            } else if (isset($_POST[$i]["CanAdd"])) {
+            } elseif (isset($_POST[$i]["CanAdd"])) {
                 $postArray = array(
                     'idPageGroup' => $_POST[$i]["idPageGroup"],
                     'CanAdd' => ($_POST[$i]["CanAdd"] == "true") ? 1 : 0
                 );
                 $last = $mSetting->fgAdd($postArray);
-            } else if (isset($_POST[$i]["CanEdit"])) {
+            } elseif (isset($_POST[$i]["CanEdit"])) {
                 $postArray = array(
                     'idPageGroup' => $_POST[$i]["idPageGroup"],
                     'CanEdit' => ($_POST[$i]["CanEdit"] == "true") ? 1 : 0
                 );
                 $last = $mSetting->fgAdd($postArray);
-            } else if (isset($_POST[$i]["CanDelete"])) {
+            } elseif (isset($_POST[$i]["CanDelete"])) {
                 $postArray = array(
                     'idPageGroup' => $_POST[$i]["idPageGroup"],
                     'CanDelete' => ($_POST[$i]["CanDelete"] == "true") ? 1 : 0

@@ -135,6 +135,7 @@
                     "</div></td>";
                 items += "</tr>";
                 items += "<th> Page Name </th>";
+                items += "<th> CanView All Detail </th>";
                 items += "<th> CanView </th>";
                 items += "<th> CanAdd </th>";
                 items += "<th> CanEdit </th>";
@@ -145,17 +146,40 @@
                         $.each(a, function (i, val) {
                             items += "<tr class='fgtr'>";
                             items += "<td>" + val.page_name + "</td>";
+
+                            items += "<td>";
+                            if (val.CanViewAllDetail == 1) {
+                                items += "<div class='onoffswitch'>" +
+                                    "<input type='checkbox'  data-idPageGroup='" + val.idPageGroup + "' value='" + val.CanViewAllDetail + "'" +
+                                    " name='CanViewAllDetail' class='onoffswitch-checkbox' " +
+                                    "id='CanViewAllDetail-" + i + "' checked>" +
+                                    "<label class='onoffswitch-label' for='CanViewAllDetail-" + i + "'>" +
+                                    "<span class='onoffswitch-inner'></span> " +
+                                    "<span class='onoffswitch-switch'></span>" +
+                                    " </label> </div>";
+                            } else {
+                                items += "<div class='onoffswitch'>" +
+                                    "<input type='checkbox'  data-idPageGroup='" + val.idPageGroup + "' " +
+                                    "value='" + val.CanViewAllDetail + "' name='CanViewAllDetail' " +
+                                    "class='onoffswitch-checkbox' id='CanViewAllDetail-" + i + "'>" +
+                                    "<label class='onoffswitch-label' for='CanViewAllDetail-" + i + "'>" +
+                                    "<span class='onoffswitch-inner'></span> " +
+                                    "<span class='onoffswitch-switch'></span>" +
+                                    " </label> </div>";
+                            }
+                            items += "</td>";
+
                             items += "<td>";
                             if (val.CanView == 1) {
                                 items += "<div class='onoffswitch'>" +
-                                    "<input type='checkbox'  data-idfromgroup='" + val.idPageGroup + "' value='" + val.CanView + "' name='CanView' class='onoffswitch-checkbox' id='CanView-" + i + "' checked>" +
+                                    "<input type='checkbox'  data-idPageGroup='" + val.idPageGroup + "' value='" + val.CanView + "' name='CanView' class='onoffswitch-checkbox' id='CanView-" + i + "' checked>" +
                                     "<label class='onoffswitch-label' for='CanView-" + i + "'>" +
                                     "<span class='onoffswitch-inner'></span> " +
                                     "<span class='onoffswitch-switch'></span>" +
                                     " </label> </div>";
                             } else {
                                 items += "<div class='onoffswitch'>" +
-                                    "<input type='checkbox'  data-idfromgroup='" + val.idPageGroup + "' value='" + val.CanView + "' name='CanView' class='onoffswitch-checkbox' id='CanView-" + i + "'>" +
+                                    "<input type='checkbox'  data-idPageGroup='" + val.idPageGroup + "' value='" + val.CanView + "' name='CanView' class='onoffswitch-checkbox' id='CanView-" + i + "'>" +
                                     "<label class='onoffswitch-label' for='CanView-" + i + "'>" +
                                     "<span class='onoffswitch-inner'></span> " +
                                     "<span class='onoffswitch-switch'></span>" +
@@ -166,14 +190,14 @@
                             items += "<td>";
                             if (val.CanAdd == 1) {
                                 items += "<div class='onoffswitch'>" +
-                                    "<input type='checkbox'  data-idfromgroup='" + val.idPageGroup + "' value='" + val.CanAdd + "' name='CanAdd' class='onoffswitch-checkbox' id='CanAdd-" + i + "' checked>" +
+                                    "<input type='checkbox'  data-idPageGroup='" + val.idPageGroup + "' value='" + val.CanAdd + "' name='CanAdd' class='onoffswitch-checkbox' id='CanAdd-" + i + "' checked>" +
                                     "<label class='onoffswitch-label' for='CanAdd-" + i + "'>" +
                                     "<span class='onoffswitch-inner'></span> " +
                                     "<span class='onoffswitch-switch'></span>" +
                                     " </label> </div>";
                             } else {
                                 items += "<div class='onoffswitch'>" +
-                                    "<input type='checkbox'  data-idfromgroup='" + val.idPageGroup + "' value='" + val.CanAdd + "' name='CanAdd' class='onoffswitch-checkbox' id='CanAdd-" + i + "'>" +
+                                    "<input type='checkbox'  data-idPageGroup='" + val.idPageGroup + "' value='" + val.CanAdd + "' name='CanAdd' class='onoffswitch-checkbox' id='CanAdd-" + i + "'>" +
                                     "<label class='onoffswitch-label' for='CanAdd-" + i + "'>" +
                                     "<span class='onoffswitch-inner'></span> " +
                                     "<span class='onoffswitch-switch'></span>" +
@@ -184,14 +208,14 @@
                             items += "<td>";
                             if (val.CanEdit == 1) {
                                 items += "<div class='onoffswitch'>" +
-                                    "<input type='checkbox' data-idfromgroup='" + val.idPageGroup + "' value='" + val.CanEdit + "' name='CanEdit' class='onoffswitch-checkbox' id='CanEdit-" + i + "' checked>" +
+                                    "<input type='checkbox' data-idPageGroup='" + val.idPageGroup + "' value='" + val.CanEdit + "' name='CanEdit' class='onoffswitch-checkbox' id='CanEdit-" + i + "' checked>" +
                                     "<label class='onoffswitch-label' for='CanEdit-" + i + "'>" +
                                     "<span class='onoffswitch-inner'></span> " +
                                     "<span class='onoffswitch-switch'></span>" +
                                     " </label> </div>";
                             } else {
                                 items += "<div class='onoffswitch'>" +
-                                    "<input type='checkbox' data-idfromgroup='" + val.idPageGroup + "' value='" + val.CanEdit + "' name='CanEdit' class='onoffswitch-checkbox' id='CanEdit-" + i + "'>" +
+                                    "<input type='checkbox' data-idPageGroup='" + val.idPageGroup + "' value='" + val.CanEdit + "' name='CanEdit' class='onoffswitch-checkbox' id='CanEdit-" + i + "'>" +
                                     "<label class='onoffswitch-label' for='CanEdit-" + i + "'>" +
                                     "<span class='onoffswitch-inner'></span> " +
                                     "<span class='onoffswitch-switch'></span>" +
@@ -202,14 +226,14 @@
                             items += "<td>";
                             if (val.CanDelete == 1) {
                                 items += "<div class='onoffswitch'>" +
-                                    "<input type='checkbox' data-idfromgroup='" + val.idPageGroup + "' value='" + val.CanDelete + "' name='CanDelete' class='onoffswitch-checkbox' id='CanDelete-" + i + "' checked>" +
+                                    "<input type='checkbox' data-idPageGroup='" + val.idPageGroup + "' value='" + val.CanDelete + "' name='CanDelete' class='onoffswitch-checkbox' id='CanDelete-" + i + "' checked>" +
                                     "<label class='onoffswitch-label' for='CanDelete-" + i + "'>" +
                                     "<span class='onoffswitch-inner'></span> " +
                                     "<span class='onoffswitch-switch'></span>" +
                                     " </label> </div>";
                             } else {
                                 items += "<div class='onoffswitch'>" +
-                                    "<input type='checkbox' data-idfromgroup='" + val.idPageGroup + "' value='" + val.CanDelete + "' name='CanDelete' class='onoffswitch-checkbox' id='CanDelete-" + i + "'>" +
+                                    "<input type='checkbox' data-idPageGroup='" + val.idPageGroup + "' value='" + val.CanDelete + "' name='CanDelete' class='onoffswitch-checkbox' id='CanDelete-" + i + "'>" +
                                     "<label class='onoffswitch-label' for='CanDelete-" + i + "'>" +
                                     "<span class='onoffswitch-inner'></span> " +
                                     "<span class='onoffswitch-switch'></span>" +
@@ -224,7 +248,7 @@
                     }
                 }
                 items += "</table>";
-                items += "<input type='button' value='Send All' onclick='SaveChanges()' class='md-btn md-btn-primary uk-float-right'/>"
+                items += "<input type='button' value='Send All' onclick='SaveChanges()' class='md-btn md-btn-primary uk-float-right'/>";
                 $('#tableForm').html(items);
             } else {
 
@@ -242,7 +266,7 @@
             }
         } else {
             for (var i = 0; i < checkboxes.length; i++) {
-                console.log(i)
+                console.log(i);
                 if (checkboxes[i].type == 'checkbox') {
                     checkboxes[i].checked = false;
                 }
@@ -257,8 +281,8 @@
         var count = $(tr).find('input');
         for (i = 0; i < count.length; i++) {
             var data = {};
-            data["idPageGroup"] = $(count[i]).attr('data-idfromgroup');
-            console.log('asdas  d   ', $(count[i]).attr('data-idfromgroup'));
+            data["idPageGroup"] = $(count[i]).attr('data-idPageGroup');
+            console.log('asdas  d   ', $(count[i]).attr('data-idPageGroup'));
             data[$(count[i]).attr('name')] = ($(count[i]).is(':checked')) ? true : false;
             arr[i] = data;
         }

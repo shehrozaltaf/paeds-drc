@@ -34,14 +34,15 @@
     <!-- themes -->
     <link rel="stylesheet" href="<?= base_url() ?>assets/css/themes/themes_combined.min.css" media="all">
     <!--    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>-->
+
+
     <!-- common jquery functions -->
     <script src="<?= base_url() ?>assets/js/common.min.js"></script>
-    <script src="<?= base_url() ?>assets/js/core.js"></script>
-
     <!-- uikit functions -->
     <script src="<?= base_url() ?>assets/js/uikit_custom.min.js"></script>
-    <!-- common functions -->
-    <script src="<?= base_url() ?>assets/js/common.min.js"></script>
+
+    <!-- Core -->
+    <script src="<?= base_url() ?>assets/js/core.js"></script>
 
     <!-- page specific plugins -->
     <!-- d3 -->

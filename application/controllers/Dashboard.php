@@ -32,13 +32,30 @@ class Dashboard extends CI_Controller
     {
         $idGroup = $_SESSION['login']['idGroup'];
         $Menu = '';
+        $isPageAdmin = 0;
+        $AdminMenu = '';
         $this->load->model('msetting');
         $Msetting = new Msetting();
         $getDataRights = $Msetting->getFormRights($idGroup, '1', '');
         if (isset($getDataRights) && count($getDataRights) >= 1) {
             foreach ($getDataRights as $pages) {
-                $Menu .= '<li><a href="' . base_url($pages->page_url) . '">' . $pages->page_name . '</a></li>';
+                if ($pages->isParent == 1 || $pages->idParent == '1263d139-3698-46aa-b8c6-35b20019fd69') {
+                    $AdminMenu .= '<li><a href="' . base_url($pages->page_url) . '">' . $pages->page_name . '</a></li>';
+                    $isPageAdmin = 1;
+                } else {
+                    $Menu .= '<li><a href="' . base_url($pages->page_url) . '">' . $pages->page_name . '</a></li>';
+                }
             }
+
+            if ($isPageAdmin === 1) {
+                $Menu .= "<li class='submenu_trigger'>";
+                $Menu .= "<a href='javascript:void(0)'>Admin</a>";
+                $Menu .= "<ul>";
+                $Menu .= $AdminMenu;
+                $Menu .= "</ul>";
+                $Menu .= "</li>";
+            }
+
         } else {
             $Menu = '';
         }

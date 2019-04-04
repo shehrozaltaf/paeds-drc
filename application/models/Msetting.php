@@ -63,13 +63,14 @@ class Msetting extends CI_Model
     {
 
         $this->db->select('`pagegroup`.`idPageGroup`, `pagegroup`.`idGroup`, `pagegroup`.`idPages`, `pagegroup`.`CanAdd`,
-         `pagegroup`.`CanEdit`, `pagegroup`.`CanDelete`, `pagegroup`.`CanView`, `pagegroup`.`IsActive`, 
+         `pagegroup`.`CanEdit`, `pagegroup`.`CanDelete`, `pagegroup`.`CanView`, `pagegroup`.`CanViewAllDetail`, `pagegroup`.`IsActive`, 
          `pages`.`page_name`, `pages`.`page_url` ');
         $this->db->from('pagegroup');
         $this->db->join('pages', 'pagegroup.idPages = pages.idPages', 'left');
         $this->db->join('group', 'pagegroup.idGroup = `group`.idGroup', 'left');
         $this->db->where('pages.isActive', 1);
         $this->db->where('pagegroup.idGroup', $idGroup);
+        $this->db->order_by('pages.sort_no', asc);
         $query = $this->db->get();
         return $query->result();
     }
@@ -90,7 +91,8 @@ class Msetting extends CI_Model
     public function getFormRights($idGroup, $CanView = '', $FormName = '')
     {
         $this->db->select('pagegroup.idPages,	pagegroup.CanAdd,	pagegroup.CanEdit,	pagegroup.CanDelete,
-        	pagegroup.CanView,	pagegroup.IsActive,	pagegroup.idPageGroup,	pages.page_name,	pages.page_url ');
+        	pagegroup.CanView,pagegroup.CanViewAllDetail,	pagegroup.IsActive,	pagegroup.idPageGroup,	pages.page_name,	pages.page_url,
+        	 pages.isParent,pages.idParent ');
         $this->db->from('pagegroup');
         $this->db->join('pages', 'pagegroup.idPages = pages.idPages', 'left');
         $this->db->where('pages.isActive', 1);

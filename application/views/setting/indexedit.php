@@ -73,16 +73,38 @@
                     items += "</tr>";
                     items += "<tr>";
                     items += "<th> Form Name </th>";
-                    items += "<th> CanView </th>";
-                    items += "<th> CanAdd </th>";
-                    items += "<th> CanEdit </th>";
-                    items += "<th> CanDelete </th>";
+                    items += "<th> Can View All Detail </th>";
+                    items += "<th> Can View </th>";
+                    items += "<th> Can Add </th>";
+                    items += "<th> Can Edit </th>";
+                    items += "<th> Can Delete </th>";
                     items += "</tr>";
                     if (a.length > 0) {
                         try {
                             $.each(a, function (i, val) {
                                 items += "<tr class='fgtr'>";
                                 items += "<td>" + val.page_name + "</td>";
+                                items += "<td>";
+                                if (val.CanViewAllDetail == 1) {
+                                    items += "<div class='onoffswitch'>" +
+                                        "<input type='checkbox'  data-idPageGroup='" + val.idPageGroup + "' value='" + val.CanViewAllDetail + "'" +
+                                        " name='CanViewAllDetail' class='onoffswitch-checkbox' " +
+                                        "id='CanViewAllDetail-" + i + "' checked>" +
+                                        "<label class='onoffswitch-label' for='CanViewAllDetail-" + i + "'>" +
+                                        "<span class='onoffswitch-inner'></span> " +
+                                        "<span class='onoffswitch-switch'></span>" +
+                                        " </label> </div>";
+                                } else {
+                                    items += "<div class='onoffswitch'>" +
+                                        "<input type='checkbox'  data-idPageGroup='" + val.idPageGroup + "' " +
+                                        "value='" + val.CanViewAllDetail + "' name='CanViewAllDetail' " +
+                                        "class='onoffswitch-checkbox' id='CanViewAllDetail-" + i + "'>" +
+                                        "<label class='onoffswitch-label' for='CanViewAllDetail-" + i + "'>" +
+                                        "<span class='onoffswitch-inner'></span> " +
+                                        "<span class='onoffswitch-switch'></span>" +
+                                        " </label> </div>";
+                                }
+                                items += "</td>";
                                 items += "<td>";
                                 if (val.CanView == 1) {
                                     items += "<div class='onoffswitch'>" +
