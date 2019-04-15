@@ -12694,7 +12694,7 @@ div.kineticjs-content {
 
 .editable-click, a.editable-click, a.editable-click:hover {
     text-decoration: none;
-    border-bottom: dashed 1px #08c
+    /*border-bottom: dashed 1px #08c*/
 }
 
 .editable-click.editable-disabled, a.editable-click.editable-disabled, a.editable-click.editable-disabled:hover {

@@ -21,7 +21,31 @@ class Dashboard extends CI_Controller
 
     function index($msg = NULL)
     {
-        $this->load->view('include/header');
+        $getData = array();
+        $this->load->model('msetting');
+        $Msetting = new Msetting();
+        $getData['permission'] = $Msetting->getFormRights($_SESSION['login']['idGroup'], '', 'form_view');
+        $getData['getGroup'] = $Msetting->getAllGroups();
+
+
+        $this->load->model('mform_view');
+        $MForm_View = new MForm_View();
+        $lastSevenDays = date('Y-m-d 00:00:00', strtotime('-7 days'));
+
+        if (isset($getData['permission'][0]->CanViewAllDetail) && $getData['permission'][0]->CanViewAllDetail == 1) {
+            $getData['getData'] = $MForm_View->getTestForms('', 1);
+            $getData['All_Applications'] = $MForm_View->getDashboardForms('', 1, '');
+            $getData['LastSevenDays'] = $MForm_View->getDashboardForms('', 1, $lastSevenDays);
+            $getData['Drafts_Application'] = $MForm_View->getDashboardForms('', 0, '');
+        } else {
+            $getData['getData'] = $MForm_View->getTestForms($_SESSION['login']['idUser'], 1);
+            $getData['All_Applications'] = $MForm_View->getDashboardForms($_SESSION['login']['idUser'], 1, '');
+            $getData['LastSevenDays'] = $MForm_View->getDashboardForms($_SESSION['login']['idUser'], 1, $lastSevenDays);
+            $getData['Drafts_Application'] = $MForm_View->getDashboardForms($_SESSION['login']['idUser'], 0, '');
+        }
+        $getData['notifications'] = $MForm_View->getNotifications($_SESSION['login']['idUser']);
+
+        $this->load->view('include/header', $getData);
         $this->load->view('include/nav');
         $this->load->view('dashboard');
         $this->load->view('include/footer');
