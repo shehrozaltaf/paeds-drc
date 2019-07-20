@@ -15,7 +15,7 @@ class MLogin extends CI_Model
 
     function validate($user, $pass)
     {
-        $this->db->select('idUser,UserName,Password,idGroup,id_org');
+        $this->db->select('idUser,UserName,Password,idGroup,id_org,full_name');
         $this->db->from('users');
         $this->db->where('UserName', $user);
         /*$this->db->where('Password', $pass);*/

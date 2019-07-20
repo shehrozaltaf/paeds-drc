@@ -266,7 +266,7 @@ if (isset($permission[0]->CanAdd) && $permission[0]->CanAdd == 1) {
         data['password'] = $('#password').val();
         data['designation'] = $('#designation').val();
         data['idGroup'] = $('#idGroup').val();
-
+        data['signUp'] = '0';
         if (data['full_name'] == '' || data['full_name'] == undefined || data['full_name'] < 1) {
             $('#full_name').addClass('md-input-danger');
             flag = 1;
@@ -294,7 +294,7 @@ if (isset($permission[0]->CanAdd) && $permission[0]->CanAdd == 1) {
             return false;
         }
         if (flag === 0) {
-            CallAjax('<?= base_url('Users/addData')?>', data, 'POST', function (res) {
+            CallAjax('<?= base_url('Login/addData')?>', data, 'POST', function (res) {
                 console.log(res);
                 if (res != '' && JSON.parse(res).length > 0) {
                     var response = JSON.parse(res);

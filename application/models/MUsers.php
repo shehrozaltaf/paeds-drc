@@ -39,4 +39,13 @@ class MUsers extends CI_Model
         return $query->result();
     }
 
+    function getUsersByGroup($idGroup)
+    {
+        $this->db->select('*');
+        $this->db->from('users');
+        $this->db->where('isActive', 1);
+        $this->db->where('idGroup', $idGroup);
+        $query = $this->db->get();
+        return $query->result();
+    }
 }

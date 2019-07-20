@@ -33,12 +33,14 @@ class Dashboard extends CI_Controller
         $lastSevenDays = date('Y-m-d 00:00:00', strtotime('-7 days'));
 
         if (isset($getData['permission'][0]->CanViewAllDetail) && $getData['permission'][0]->CanViewAllDetail == 1) {
-            $getData['getData'] = $MForm_View->getTestForms('', 1);
+            $getData['getData'] = $MForm_View->getTestForms('', 1, 0);
+            $getData['New_Applications'] = $MForm_View->getTestForms('', 1, 1);
             $getData['All_Applications'] = $MForm_View->getDashboardForms('', 1, '');
             $getData['LastSevenDays'] = $MForm_View->getDashboardForms('', 1, $lastSevenDays);
             $getData['Drafts_Application'] = $MForm_View->getDashboardForms('', 0, '');
         } else {
-            $getData['getData'] = $MForm_View->getTestForms($_SESSION['login']['idUser'], 1);
+            $getData['getData'] = $MForm_View->getTestForms($_SESSION['login']['idUser'], 1, 0);
+            $getData['New_Applications'] = $MForm_View->getTestForms($_SESSION['login']['idUser'], 1, 1);
             $getData['All_Applications'] = $MForm_View->getDashboardForms($_SESSION['login']['idUser'], 1, '');
             $getData['LastSevenDays'] = $MForm_View->getDashboardForms($_SESSION['login']['idUser'], 1, $lastSevenDays);
             $getData['Drafts_Application'] = $MForm_View->getDashboardForms($_SESSION['login']['idUser'], 0, '');

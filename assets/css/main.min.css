@@ -7266,8 +7266,18 @@ textarea.no_autosize {
 }
 
 .md-input-wrapper > label {
-    color: #000000;
+    color: #1976d2;
     position: absolute;
+    top: 16px;
+    left: 4px;
+    right: 0;
+    pointer-events: none;
+    -webkit-transition: all 150ms ease-out;
+    transition: all 150ms ease-out
+}
+.md-input-wrapper > label.textarea_label {
+    color: #1976d2;
+    position: relative;
     top: 16px;
     left: 4px;
     right: 0;
@@ -11296,7 +11306,8 @@ div.ganttview .ui-resizable-w {
     display: block;
     font-weight: 500;
     font-size: 13px;
-    margin: -4px 0
+    color: #1976d2;
+    margin: -4px 0;
 }
 
 .wizard > .content > .body .icheck-inline {
@@ -16622,7 +16633,7 @@ h1, h2, h3, h4, h5, h6 {
 }
 
 .heading_a .sub-heading {
-    font-weight: 300;
+    font-weight: 600;
     font-size: 14px;
     line-height: 18px;
     display: block;

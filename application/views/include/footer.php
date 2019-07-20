@@ -35,6 +35,7 @@
     }
 
     $(document).ready(function () {
+        altair_main_sidebar.init();
         getMenu();
     });
 

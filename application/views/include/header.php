@@ -101,11 +101,16 @@
                                                     data['idNotification'] = $(obj).attr('data-idNoti');
                                                     data['Seen'] = 1;
                                                     CallAjax('<?= base_url('form/ReadNoti')?>', data, 'POST', function (result) {
-                                                        var url = $(obj).attr('data-url');
-                                                        if (result == 1) {
-                                                            window.location.href = url;
+                                                        if (result != '' && JSON.parse(result).length > 0) {
+                                                            var url = $(obj).attr('data-url');
+                                                            var response = JSON.parse(result);
+                                                            try {
+                                                                if (response[1] === 'success') {
+                                                                    window.location.href = url;
+                                                                }
+                                                            } catch (e) {
+                                                            }
                                                         }
-
                                                     });
                                                 }
                                             </script>

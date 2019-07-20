@@ -14,7 +14,7 @@
     <link rel="icon" type="image/ico" href="<?= base_url() ?>assets/img/favicon.ico"/>
 
 
-    <title>Aga Khan - Lab System</title>
+    <title>Paeds - DRC</title>
 
     <link href='http://fonts.googleapis.com/css?family=Roboto:300,400,500' rel='stylesheet' type='text/css'>
 
@@ -34,7 +34,7 @@
         <div class="md-card-content large-padding" id="login_form">
             <div class="login_heading">
                 <div class="user_avatar"></div>
-                <h2>AGA KHAN - LAB SYSTEM</h2>
+                <h2>Paeds - DRC</h2>
             </div>
             <form>
                 <div id="msg" style="display: none;" class="uk-alert" data-uk-alert>
@@ -42,7 +42,7 @@
                     <p id="msgText"></p>
                 </div>
                 <div class="uk-form-row">
-                    <label for="login_username">Username</label>
+                    <label for="login_username">Email</label>
                     <input class="md-input" type="text" id="login_username" name="login_username"/>
                 </div>
                 <div class="uk-form-row">
@@ -91,7 +91,7 @@
                     <input class="md-input" type="text" id="login_email_reset" name="login_email_reset"/>
                 </div>
                 <div class="uk-margin-medium-top">
-                    <a href="index-2.html" class="md-btn md-btn-primary md-btn-block">Reset password</a>
+                    <a href="javascript:void(0)" class="md-btn md-btn-primary md-btn-block">Reset password</a>
                 </div>
             </form>
         </div>
@@ -100,32 +100,37 @@
                     class="uk-position-top-right uk-close uk-margin-right uk-margin-top back_to_login"></button>
             <h2 class="heading_a uk-margin-medium-bottom">Create an account</h2>
             <form>
-                <div class="uk-form-row">
-                    <label for="register_username">Username</label>
-                    <input class="md-input" type="text" id="register_username" name="register_username"/>
+                <div id="msgSignup" style="display: none;" class="uk-alert" data-uk-alert>
+                    <a href="javascript:void(0)" class="uk-alert-close uk-close"></a>
+                    <p id="msgTextSignup"></p>
                 </div>
                 <div class="uk-form-row">
-                    <label for="register_password">Password</label>
-                    <input class="md-input" type="password" id="register_password" name="register_password"/>
+                    <label for="full_name">Full Name</label>
+                    <input class="md-input" type="text" id="full_name" name="full_name"/>
                 </div>
                 <div class="uk-form-row">
-                    <label for="register_password_repeat">Repeat Password</label>
-                    <input class="md-input" type="password" id="register_password_repeat"
+                    <label for="username">Email</label>
+                    <input class="md-input" type="text" id="username" name="username"/>
+                </div>
+                <div class="uk-form-row">
+                    <label for="password">Password</label>
+                    <input class="md-input" type="password" id="password"
                            name="register_password_repeat"/>
                 </div>
                 <div class="uk-form-row">
-                    <label for="register_email">E-mail</label>
-                    <input class="md-input" type="text" id="register_email" name="register_email"/>
+                    <label for="designation">Designation</label>
+                    <input class="md-input" type="text" id="designation" name="designation"/>
                 </div>
                 <div class="uk-margin-medium-top">
-                    <a href="index-2.html" class="md-btn md-btn-primary md-btn-block md-btn-large">Sign Up</a>
+                    <a href="javascript:void(0)" onclick="signUp()"
+                       class="md-btn md-btn-primary md-btn-block md-btn-large">Sign Up</a>
                 </div>
             </form>
         </div>
     </div>
-    <!--<div class="uk-margin-top uk-text-center">
+    <div class="uk-margin-top uk-text-center">
         <a href="#" id="signup_form_show">Create an account</a>
-    </div>-->
+    </div>
 </div>
 
 <!-- common functions -->
@@ -138,7 +143,62 @@
 <script src="<?= base_url() ?>assets/js/pages/login.min.js"></script>
 <script src="<?= base_url() ?>assets/js/core.js"></script>
 <script>
+    function signUp() {
+        $('#msgSignup').removeClass('uk-alert-danger').removeClass('uk-alert-success');
+        $('#full_name').removeClass('md-input-danger');
+        $('#username').removeClass('md-input-danger');
+        $('#password').removeClass('md-input-danger');
+        var flag = 0;
+        var data = {};
+        var Group = [];
+        data['full_name'] = $('#full_name').val();
+        data['username'] = $('#username').val();
+        data['password'] = $('#password').val();
+        data['designation'] = $('#designation').val();
+        data['idGroup'] = '1AA4943C-B01F-61DF-A582-04A3E8150048';
+        data['signUp'] = '1';
+        if (data['full_name'] == '' || data['full_name'] == undefined || data['full_name'] < 1) {
+            $('#full_name').addClass('md-input-danger');
+            flag = 1;
+            returnMsg('msgTextSignup', 'Invalid Full Name', 'uk-alert-danger', 'msgSignup');
+            return false;
+        }
+        if (data['username'] == '' || data['username'] == undefined || data['username'].length < 1) {
+            $('#username').addClass('md-input-danger');
+            flag = 1;
+            returnMsg('msgTextSignup', 'Invalid User Name', 'uk-alert-danger', 'msgSignup');
+            return false;
+        }
+        if (data['password'] == '' || data['password'] == undefined || data['password'].length < 3) {
+            $('#password').addClass('md-input-danger');
+            returnMsg('msgTextSignup', 'Invalid Password', 'uk-alert-danger', 'msgSignup');
+            flag = 1;
+            return false;
+        }
+        if (flag === 0) {
+            altair_helpers.content_preloader_show();
+            CallAjax('<?= base_url('Login/addData')?>', data, 'POST', function (res) {
+                if (res != '' && JSON.parse(res).length > 0) {
+                    var response = JSON.parse(res);
+                    try {
+                        notificatonShow(response[0], response[1]);
+                        if (response[1] === 'success') {
+                            returnMsg('msgTextSignup', 'Success', 'uk-alert-success', 'msgSignup');
+                            window.location.href = "<?=base_url('dashboard')?>";
+                        } else if (response[0] == 'User Name already exist') {
+                            returnMsg('msgTextSignup', 'User Name already exist', 'uk-alert-danger', 'msgSignup');
+                        } else {
+                            returnMsg('msgTextSignup', 'Something went wrong', 'uk-alert-danger', 'msgSignup');
+                        }
+                    } catch (e) {
+                    }
+                }
+            });
+        }
+    }
+
     function login() {
+        $('#msg').removeClass('uk-alert-danger').removeClass('uk-alert-success');
         var errorFlag = 0;
         $('#login_username').removeClass('error');
         $('#login_password').removeClass('error');

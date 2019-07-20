@@ -8,6 +8,9 @@
             <a href="<?= base_url() ?>" class="sSidebar_show sidebar_logo_small">
                 <h3>DATA MANAGMENT UNIT</h3>
             </a>
+            <a href="<?= base_url() ?>" class=" ">
+                <h4><?= (isset($_SESSION['login']['full_name']) && $_SESSION['login']['full_name'] != '' ? 'Welcome ' . $_SESSION['login']['full_name'] : '') ?></h4>
+            </a>
         </div>
     </div>
 

@@ -2,45 +2,16 @@
     <div id="page_content_inner"><!-- statistics (small charts) -->
         <div class="uk-grid uk-grid-width-large-1-2 uk-grid-width-medium-1-2 uk-grid-medium uk-sortable sortable-handler hierarchical_show"
              data-uk-sortable data-uk-grid-margin>
-            <div>
-                <div class="md-card">
-                    <div class="md-card-content">
-                        <div class="uk-float-right uk-margin-top uk-margin-small-right"><span
-                                    class="peity_visitors peity_data">5,3,9,6,5,9,7</span></div>
-                        <span class="uk-text-muted uk-text-small">All Applications</span>
-                        <h2 class="uk-margin-remove"><span class="countUpMe"> <noscript>
-                                    <?= (isset($All_Applications[0]->cntApplications) ? $All_Applications[0]->cntApplications : 0) ?>
-                                </noscript></span>
-                        </h2>
-                    </div>
-                </div>
-            </div>
-            <div>
-                <div class="md-card">
-                    <div class="md-card-content">
-                        <div class="uk-float-right uk-margin-top uk-margin-small-right"><span
-                                    class="peity_sale peity_data">10,15,20,35</span></div>
-                        <span class="uk-text-muted uk-text-small">Drafts Application</span>
-                        <h2 class="uk-margin-remove"><span class="countUpMe">
-                                <?= (isset($Drafts_Application[0]->cntApplications) ? $Drafts_Application[0]->cntApplications : 0) ?></span>
-                        </h2>
-                    </div>
-                </div>
-            </div>
-        </div>
-
-        <div class="uk-grid uk-grid-width-large-1-2 uk-grid-width-medium-1-2 uk-grid-medium uk-sortable sortable-handler hierarchical_show"
-             data-uk-sortable data-uk-grid-margin>
 
             <div>
                 <div class="md-card">
                     <div class="md-card-content">
-                        <a href="<?= base_url('form_view') ?>">
+                        <a href="<?= base_url('form_view/newforms') ?>">
                             <div class="uk-float-right uk-margin-top uk-margin-small-right"><span
                                         class="peity_sale peity_data uk-text-primary">5,3,9,3,5,2</span></div>
                             <span class="uk-text-muted uk-text-small">New Applications</span>
                             <h2 class="uk-margin-remove"><span
-                                        class="countUpMe"><?= (isset($LastSevenDays[0]->cntApplications) ? $LastSevenDays[0]->cntApplications : 0) ?></span>
+                                        class="countUpMe"><?= count($New_Applications) ?></span>
                             </h2>
                         </a>
                     </div>
@@ -55,6 +26,38 @@
                         <h2 class="uk-margin-remove"><span
                                     class="countUpMe"><?= (isset($LastSevenDays[0]->cntApplications) ? $LastSevenDays[0]->cntApplications : 0) ?></span>
                         </h2>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="uk-grid uk-grid-width-large-1-2 uk-grid-width-medium-1-2 uk-grid-medium uk-sortable sortable-handler hierarchical_show"
+             data-uk-sortable data-uk-grid-margin>
+            <div>
+                <div class="md-card">
+                    <div class="md-card-content">
+                        <a href="<?= base_url('form_view') ?>">
+                            <div class="uk-float-right uk-margin-top uk-margin-small-right"><span
+                                        class="peity_visitors peity_data">5,3,9,6,5,9,7</span></div>
+                            <span class="uk-text-muted uk-text-small">All Applications</span>
+                            <h2 class="uk-margin-remove"><span class="countUpMe"> <noscript>
+                                    <?= (isset($All_Applications[0]->cntApplications) ? $All_Applications[0]->cntApplications : 0) ?>
+                                </noscript></span>
+                            </h2>
+                        </a>
+                    </div>
+                </div>
+            </div>
+            <div>
+                <div class="md-card">
+                    <div class="md-card-content">
+                        <a href="<?= base_url('form_view') ?>">
+                            <div class="uk-float-right uk-margin-top uk-margin-small-right"><span
+                                        class="peity_sale peity_data">10,15,20,35</span></div>
+                            <span class="uk-text-muted uk-text-small">Drafts Application</span>
+                            <h2 class="uk-margin-remove"><span class="countUpMe">
+                                <?= (isset($Drafts_Application[0]->cntApplications) ? $Drafts_Application[0]->cntApplications : 0) ?></span>
+                            </h2>
+                        </a>
                     </div>
                 </div>
             </div>
@@ -130,13 +133,12 @@
                         <table id="dt_tableExport" class="uk-table" cellspacing="0" width="100%">
                             <thead>
                             <tr>
-                                <th>SNo</th>
-                                <th>Application No</th>
+                                <th>Application</th>
                                 <th>Title</th>
-                                <th>Review No</th>
                                 <th>Principal Investigator</th>
-                                <th>Coordinator/Representative</th>
-                                <th>Team Member</th>
+                                <th>Status</th>
+                                <th>Type</th>
+                                <th>Reviewer</th>
                                 <th>Created By</th>
                                 <th>Created Date</th>
                                 <th>Action</th>
@@ -144,13 +146,12 @@
                             </thead>
                             <tfoot>
                             <tr>
-                                <th>SNo</th>
-                                <th>Application No</th>
+                                <th>Application</th>
                                 <th>Title</th>
-                                <th>Review No</th>
                                 <th>Principal Investigator</th>
-                                <th>Coordinator/Representative</th>
-                                <th>Team Member</th>
+                                <th>Status</th>
+                                <th>Type</th>
+                                <th>Reviewer</th>
                                 <th>Created By</th>
                                 <th>Created Date</th>
                                 <th>Action</th>
@@ -161,34 +162,54 @@
                             if (isset($getData) && $getData != '') {
                                 $sno = 0;
                                 foreach ($getData as $data) {
-                                    $sno++;
+                                    $statusClass = '';
+                                    if ($data->status == 'New') {
+                                        $statusClass = 'uk-badge-success';
+                                    } elseif ($data->status == 'Open') {
+                                        $statusClass = 'uk-badge-primary';
+                                    } elseif ($data->status == 'Completed') {
+                                        $statusClass = '';
+                                    } elseif ($data->status == 'Rejected') {
+                                        $statusClass = 'uk-badge-danger';
+                                    }
 
-                                    $td = '<tr>
-                             <td>' . $sno . '</td> 
-                             <td>' . $data->idApplication . '</td>  
-                             <td>' . $data->title_of_study . '</td>  
-                             <td>' . $data->ReviewNo . '</td>  
-                             <td>' . $data->PID_title . ' ' . $data->PID_first_name . ' ' . $data->PID_surname . '</td>  
-                             <td>' . $data->DCD_title . ' ' . $data->DCD_first_name . ' ' . $data->DCD_surname . '</td>  
-                             <td>' . $data->TMD_title . ' ' . $data->TMD_first_name . ' ' . $data->TMD_surname . '</td>  
-                             ';
+
+                                    if ($data->AimsProject == 'Yes') {
+                                        $AimsProject = 'AIMS';
+                                        $AimsClass = 'uk-badge-success';
+                                    } else {
+                                        $AimsProject = 'DRC';
+                                        $AimsClass = 'uk-badge-primary';
+                                    }
+
+                                    $td = '<tr> 
+                             <td>' . $data->idApplication . '-' . $data->ReviewNo . '</td>  
+                             <td>' . $data->title_of_study . '</td>   
+                             <td>' . $data->PID_title . ' ' . $data->PID_first_name . ' ' . $data->PID_surname . '</td>';
                                     /*if (isset($data->attach_files) && $data->attach_files != '') {
                                         $td .= ' <td><a href="' . base_url($data->attach_files) . '" target="_blank"> ' . base_url($data->attach_files) . '</a></td>';
                                     } else {
                                         $td .= ' <td>---</td>';
                                     }*/
                                     $td .= '
+                                    <td> <select id="PID_title" name="PID_title" class="uk-badge ' . $statusClass . '" > 
+                                        <option value="New" ' . ($data->status == 'New' ? 'selected' : '') . '>New</option>
+                                        <option value="Open"  ' . ($data->status == 'Open' ? 'selected' : '') . '>Open</option>
+                                        <option value="Completed"  ' . ($data->status == 'Completed' ? 'selected' : '') . '>Completed</option>
+                                        <option value="Rejected"  ' . ($data->status == 'Rejected' ? 'selected' : '') . '>Rejected</option>
+                                    </select>  </td>
+                                    <td><span  class="uk-badge ' . $AimsClass . '">' . $AimsProject . '</td>
+                                    <td>' . $data->assignedTo . '</td>
                                     <td>' . $data->full_name . '</td>
                                     <td>' . date('d-m-Y h:i:s', strtotime($data->createdDateTime)) . '</td>
                                     <td> ';
                                     if (isset($permission[0]->CanView) && $permission[0]->CanView == 1) {
                                         $td .= '<a href="' . base_url('project_detail/' . $data->idApplication) . '"   ><i class="md-icon material-icons">visibility</i></a>';
                                     }
-                                    if (isset($permission[0]->CanEdit) && $permission[0]->CanEdit == 1) {
+                                    if (isset($permission[0]->CanEdit) && $permission[0]->CanEdit == 1 && $data->createdBy == $_SESSION['login']['idUser']) {
                                         $td .= '<a href="' . base_url('form_edit/' . $data->idApplicationGuid) . '"   >
 <i class="md-icon material-icons">edit</i></a>';
                                     }
-
                                     $td .= '</td>
                                 </tr>';
                                     echo $td;

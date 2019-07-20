@@ -50,9 +50,12 @@ defined('BASEPATH') OR exit('No direct script access allowed');
 |		my-controller/my-method	-> my_controller/my_method
 */
 $route['default_controller'] = 'login';
+$route['aims_applications'] = 'Form/aims_application_formview';
 $route['form_drafts'] = 'Form/form_drafts_view';
 $route["form_draft_edit/(.*)"] = 'Form/form_draft_edit/$1';
+$route["aims/form_draft_edit/(.*)"] = 'Form/aims_draft_edit/$1';
 $route["project_detail/(.*)"] = 'Form/form_project_detail_view/$1';
 $route["form_edit/(.*)"] = 'Form/form_edit/$1';
+$route["aims/form_edit/(.*)"] = 'Form/aims_applications_edit/$1';
 $route['404_override'] = '';
 $route['translate_uri_dashes'] = FALSE;
